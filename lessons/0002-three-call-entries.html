@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 2 课：三种呼叫入口</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 第 2 课 · 非官方课程 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>三种呼叫入口：先看音频是谁送来的</h1>
+<p class="lede">约 3 分钟。本课只记一件事：按「谁把音频送来」选择入口。三条入口都只是入口，背后仍须运行 active-call。本课无需安装，对照尚未运行。</p>
+
+<p>上一课已经确认：网页只是入口，负责采集并送出声音，也播放回复；正在运行的 active-call 再按配置连接语音和模型能力。除了网页，官方还提供另外两条入口。</p>
+
+<table>
+<thead>
+<tr><th>入口</th><th>音频从哪里来</th><th>怎么记</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>A 浏览器 WebRTC</td>
+<td>人在网页里用麦克风说话</td>
+<td>不拨电话号码，从扬声器听回复。页面须在 <code>HTTPS</code> 或 <code>127.0.0.1</code>，否则浏览器无法启用 WebRTC。网页仍然只是入口。</td>
+</tr>
+<tr>
+<td>B SIP</td>
+<td>SIP 话机，或实验用的 PBX / 网关</td>
+<td>文档中的对接对象包括 FreeSWITCH、Asterisk、RustPBX 等。可对接现有分机或实验 PBX，也可作为分机注册进去。本课不进入真实电话网，也不拨真实号码。</td>
+</tr>
+<tr>
+<td>C Voice over WebSocket</td>
+<td>自己的程序推送音频流</td>
+<td>适合自定义应用：程序把原始或已编码的音频推给 active-call，并接收事件或回复音频。不是浏览器里的 WebRTC 通话。</td>
+</tr>
+</tbody>
+</table>
+
+<p class="note">文档里，SIP 也可以用 WebSocket 当传输。那是 SIP 信令的一种承载，和入口 C 的 Voice over WebSocket（程序直接推音频）不是同一件事。本课只提醒这一句，不展开。</p>
+
+<h2>练习</h2>
+<div class="task">
+<p class="q">先不要往下看。用自己的话回答：已有一部 SIP 分机，或已经架好实验用的 PBX，想把通话接到 AI。应该选哪条入口？请说明理由。</p>
+<details>
+<summary>先答完再展开</summary>
+<p>选 <strong>B（SIP）</strong>。因为音频是从 SIP 分机或实验 PBX 送来的，不是浏览器网页，也不是自己的程序直接推音频流。选好入口后，仍然要运行 active-call 服务。本课不拨真实号码，也不对接运营商。</p>
+</details>
+</div>
+
+<h2>主要阅读</h2>
+<p>请对照固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a>（crate 0.3.120）的官方说明：<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/README.md">仓库 README</a> 中的 Multi-Protocol Audio Gateway，以及中文 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/README.md">文档中心的场景入口</a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/config_guide.md">配置指南的呼叫场景 1–3</a>。本页是非官方学习课文，不是官方文档。</p>
+<p>三种入口也可随时查看 <a href="../reference/three-call-entries.html">入口速查</a>。上一课：<a href="0001-what-is-active-call.html">项目定位</a>。</p>
+<p>有不清楚的，直接问我。</p>
+<p>下一课预告：呼入之后，由 Playbook 还是 Webhook 来处理。课文尚未发布，到时再开始。</p>
+<p class="source">目录：<a href="../index.html">课程索引</a>。本课不含个人进度，也尚未运行任何服务。</p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）· 课文 2026-11-22</footer>
+</body>
+</html>

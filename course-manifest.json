@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "course_id": "active-call-learning",
+  "language": "zh-CN",
+  "nature": "unofficial-static-course",
+  "runtime_verified": false,
+  "upstream": {
+    "repository": "miuda-ai/active-call",
+    "commit": "d453c4f8d4525c9c44fc7c6a8076b9bb98ede123",
+    "version": "0.3.120",
+    "committed_at": "2026-11-20T05:53:57Z"
+  },
+  "learning_repo": {
+    "repository": "penanegrarenea-ship-it/active-call-learning",
+    "lessons_commit": null,
+    "lessons_commit_note": "只记录引入当前首页、课文、速查和样式的 git 提交全文哈希。该提交必须能被 git 检出核对，并且不得等于写入本字段的那次提交。首次放入课文时哈希尚不存在，因此留空，不写占位假值。"
+  },
+  "pages_allowlist": [
+    "index.html",
+    "lessons/0001-what-is-active-call.html",
+    "lessons/0002-three-call-entries.html",
+    "reference/what-is-active-call.html",
+    "reference/three-call-entries.html",
+    "assets/style.css"
+  ],
+  "pages_sha256": {
+    "index.html": "9e6ee8c45ceaa85472d0bf0666c7b24a182032b94ccb63423e8083eff958b2df",
+    "lessons/0001-what-is-active-call.html": "b07bbef12faf0420e096305d633647343654b103061d687f20bfe524e0ac458c",
+    "lessons/0002-three-call-entries.html": "2610f73cf18add46c46e6f4987e20c274676c0782391f5f9c5034eef4c6ef2b6",
+    "reference/what-is-active-call.html": "857b4149ce5ac53fffee692ceb0e05f0f37a792990bb20fcbafc67c25b01fa12",
+    "reference/three-call-entries.html": "e4d387c052d4a731bc9112061b12841a70ba76f3e4de857cffac3b627741e68f",
+    "assets/style.css": "1b9f7343ff68f5071a993e4eaba6eb4be6335195cdf271bdc35dc001f552d6be"
+  },
+  "lessons": [
+    {
+      "lesson_id": "what-is-active-call",
+      "number": 1,
+      "title": "定位",
+      "status": "readable",
+      "path": "lessons/0001-what-is-active-call.html",
+      "reference_path": "reference/what-is-active-call.html"
+    },
+    {
+      "lesson_id": "three-call-entries",
+      "number": 2,
+      "title": "三种入口",
+      "status": "readable",
+      "path": "lessons/0002-three-call-entries.html",
+      "reference_path": "reference/three-call-entries.html"
+    },
+    {
+      "lesson_id": "playbook-and-webhook",
+      "number": 3,
+      "title": "Playbook 与 Webhook",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    },
+    {
+      "lesson_id": "config-port-safety",
+      "number": 4,
+      "title": "配置端口安全",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    },
+    {
+      "lesson_id": "hello-playbook",
+      "number": 5,
+      "title": "Hello Playbook",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    },
+    {
+      "lesson_id": "yaml-scenarios",
+      "number": 6,
+      "title": "YAML 场景",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    },
+    {
+      "lesson_id": "variables",
+      "number": 7,
+      "title": "变量",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    },
+    {
+      "lesson_id": "dtmf-tools",
+      "number": 8,
+      "title": "DTMF 工具",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    },
+    {
+      "lesson_id": "http-websocket-api",
+      "number": 9,
+      "title": "HTTP 与 WebSocket API",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    },
+    {
+      "lesson_id": "browser-isolated-drill",
+      "number": 10,
+      "title": "浏览器隔离演练",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    },
+    {
+      "lesson_id": "sip-lab-drill",
+      "number": 11,
+      "title": "SIP 实验演练",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    },
+    {
+      "lesson_id": "websocket-licensed-synth-audio-drill",
+      "number": 12,
+      "title": "WebSocket 许可合成音频演练",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    },
+    {
+      "lesson_id": "independent-scenario-check",
+      "number": 13,
+      "title": "独立改场景验证",
+      "status": "planned",
+      "path": null,
+      "reference_path": null
+    }
+  ]
+}
