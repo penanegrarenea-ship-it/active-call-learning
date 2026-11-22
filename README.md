@@ -30,6 +30,6 @@
 
 ## 静态发布
 
-[`.github/workflows/pages.yml`](.github/workflows/pages.yml) 在推送到 `main` 时，只把白名单文件交给 GitHub Pages：`index.html`、已发布的三课、已发布的三份速查，以及 `assets/style.css`。组装逻辑在 [`scripts/assemble_pages.py`](scripts/assemble_pages.py)，不会把整个仓库上传上去，也不安装构建依赖。
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) 在推送到 `main` 时，只把白名单文件交给 GitHub Pages：`index.html`、已发布的三课、已发布的三份速查，以及 `assets/style.css`。组装逻辑在 [`scripts/assemble_pages.py`](scripts/assemble_pages.py)，不会把整个仓库上传上去，也不安装构建依赖。上传和部署分成两个 job，避免在同一次 job 里刚传完 artifact 就部署。
 
 工作流文件本身不会开通 Pages。需要有仓库管理权限的人在 Settings → Pages → Build and deployment 里把 Source 选为 GitHub Actions。在此之前没有站点，本仓库也不宣称已经部署成功。

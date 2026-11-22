@@ -25,17 +25,12 @@ jobs:
       - name: Check allowlist, links, and lesson commit
         run: python3 scripts/assemble_pages.py
 
-  deploy:
+  upload:
     needs: verify
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -47,6 +42,19 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: _site
+
+  # deploy-pages 在同一 job 里紧接着上传去列举 artifact 时，列表会间歇性为空。
+  # 上传结束后再开一个 job，列举发生在上传 job 完成之后。
+  deploy:
+    needs: upload
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
