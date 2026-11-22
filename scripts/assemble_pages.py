@@ -27,6 +27,7 @@ SITE = ROOT / "_site"
 UPSTREAM_REPOSITORY = "miuda-ai/active-call"
 UPSTREAM_COMMIT = "d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"
 UPSTREAM_VERSION = "0.3.120"
+BASE_LESSONS_COMMIT = "1eee016a7e82b6151dc3ce54df48337195e34b23"
 PUBLISH_ROOTS = ("lessons/", "reference/", "assets/")
 SENSITIVE = re.compile(
     r"(?i)("
@@ -305,42 +306,96 @@ def check_content_hashes(data: dict, allow: list[str]) -> None:
             fail(f"{rel} sha256 does not match pages_sha256")
 
 
-def check_lessons_commit(data: dict, allow: list[str], allow_unset: bool) -> None:
-    learning = data.get("learning_repo")
-    if not isinstance(learning, dict):
-        fail("learning_repo must be an object")
-    recorded = learning.get("lessons_commit")
-    if recorded is None:
-        if allow_unset:
-            print("lessons_commit is unset; skipping git trace until the introducing commit exists")
-            return
-        fail("lessons_commit is null; record the real commit that introduced the lesson files")
-    if not isinstance(recorded, str) or not SHA.fullmatch(recorded):
-        fail("lessons_commit must be a full 40-character git commit")
-    head = git("rev-parse", "HEAD")
-    if recorded == head:
-        fail("lessons_commit points at HEAD, which would be a self-reference")
-    object_type = subprocess.run(
-        ["git", "cat-file", "-t", recorded],
+def git_output(*args: str) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["git", *args],
         cwd=ROOT,
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         check=False,
     )
-    if object_type.returncode != 0:
-        print(
-            "lessons_commit is not in this checkout; "
-            "pages_sha256 still checks the published bytes"
-        )
-        return
-    if object_type.stdout.strip() != "commit":
+
+
+def blob_at(rev: str, rel: str) -> str | None:
+    result = git_output("rev-parse", f"{rev}:{rel}")
+    if result.returncode != 0:
+        return None
+    return result.stdout.strip()
+
+
+def commit_type(rev: str) -> str | None:
+    result = git_output("cat-file", "-t", rev)
+    if result.returncode != 0:
+        return None
+    return result.stdout.strip()
+
+
+def check_lessons_commit(data: dict, allow: list[str], allow_unset: bool) -> None:
+    learning = data.get("learning_repo")
+    if not isinstance(learning, dict):
+        fail("learning_repo must be an object")
+    recorded = learning.get("lessons_commit")
+    if recorded != BASE_LESSONS_COMMIT:
+        fail("lessons_commit must stay the commit that introduced the first three lessons")
+    head = git("rev-parse", "HEAD")
+    if recorded == head:
+        fail("lessons_commit points at HEAD, which would be a self-reference")
+
+    entries = learning.get("content_commits", [])
+    if not isinstance(entries, list):
+        fail("content_commits must be a list")
+    incremental: dict[str, str | None] = {}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            fail("each content_commits entry must be an object")
+        commit = entry.get("commit")
+        paths = entry.get("paths")
+        if commit is not None and (not isinstance(commit, str) or not SHA.fullmatch(commit)):
+            fail("content_commits.commit must be a full git commit or null")
+        if not isinstance(paths, list) or not paths:
+            fail("content_commits.paths must list the files changed in that increment")
+        for rel in paths:
+            if not isinstance(rel, str) or rel not in allow:
+                fail(f"content commit path is not allowlisted: {rel!r}")
+            if rel in incremental:
+                fail(f"{rel} is listed in more than one content commit")
+            incremental[rel] = commit
+
+    base_type = commit_type(recorded)
+    if base_type is None:
+        print("lessons_commit is not in this checkout; pages_sha256 still checks the published bytes")
+    elif base_type != "commit":
         fail("lessons_commit is not a commit object")
-    for rel in allow:
-        recorded_blob = git("rev-parse", f"{recorded}:{rel}")
-        worktree_blob = git("hash-object", rel)
-        if recorded_blob != worktree_blob:
-            fail(f"{rel} does not match lessons_commit {recorded}")
+    else:
+        for rel in allow:
+            base_blob = blob_at(recorded, rel)
+            worktree_blob = git("hash-object", rel)
+            changed = base_blob != worktree_blob
+            if changed and rel not in incremental:
+                fail(f"{rel} no longer matches lessons_commit and is not in content_commits")
+            if not changed and rel in incremental:
+                fail(f"{rel} still matches lessons_commit; leave it out of content_commits")
+
+    for rel, commit in incremental.items():
+        if commit is None:
+            if allow_unset:
+                print(f"{rel} content commit is unset; skipping its git trace")
+                continue
+            fail(f"{rel} needs the commit that introduced its current bytes")
+        if commit == head:
+            fail("content_commits points at HEAD, which would be a self-reference")
+        if commit == recorded:
+            fail("content_commits must not reuse lessons_commit")
+        kind = commit_type(commit)
+        if kind is None:
+            print(f"content commit for {rel} is not in this checkout; pages_sha256 still checks the bytes")
+            continue
+        if kind != "commit":
+            fail(f"content commit for {rel} is not a commit object")
+        recorded_blob = blob_at(commit, rel)
+        if recorded_blob != git("hash-object", rel):
+            fail(f"{rel} does not match content commit {commit}")
 
 
 def main() -> None:

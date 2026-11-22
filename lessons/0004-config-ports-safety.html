@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 4 课：配置与端口</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 第 4 课 · 非官方课程 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>配置与端口：先分清 HTTP 和 SIP 监听</h1>
+<p class="lede">约 3 分钟。本课只记一件事：网页和 API 走 HTTP 监听，SIP 信令走 UDP 监听；端口以你正在用的配置为准，不能照抄另一份文档。下面是摘录对照，本课未运行、无需安装。</p>
+
+<p>先看同一提交里的两处写法，数字并不一样。</p>
+
+<p class="source">来自 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/active-call.example.toml"><code>active-call.example.toml</code></a>：</p>
+<pre><code>http_addr = "0.0.0.0:8080"
+udp_port = 13050</code></pre>
+
+<p class="source">来自 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/config_guide.md">中文配置指南</a>的基础配置示例（文中还写 UDP「默认 25060」）：</p>
+<pre><code>http_addr = "0.0.0.0:8080"
+udp_port = 25060</code></pre>
+
+<p>同提交里还有：<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/Dockerfile">Dockerfile</a> 暴露 <code>8080</code> 和 <code>13050/udp</code>；同一份配置指南的 FAQ 防火墙示例写 HTTP 8080、SIP 13050；<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/twilio_integration.md">Twilio 指南</a>示例则是 <code>udp_port = 5060</code>、<code>tls_port = 5061</code>。不要把这些合成一个官方默认端口。</p>
+
+<p>字段本身是清楚的（以配置指南的说明为准）：</p>
+<ul>
+<li><code>http_addr</code>：HTTP 服务的完整地址（IP + 端口），网页客户端和 API 都走这里。</li>
+<li><code>addr</code>：SIP 服务绑定的 IP。</li>
+<li><code>udp_port</code>：UDP 端口，用于 SIP 信令；指南还写它也用于 RTP 媒体。另有 <code>rtp_start_port</code> / <code>rtp_end_port</code> 范围，本课不展开。</li>
+</ul>
+<p>命令行的 <code>--http</code>、<code>--sip</code> 可以覆盖文件里的值。无论看哪份文档，都以<strong>你正在用的那份配置和实际启动参数</strong>为准。</p>
+
+<p class="note">官方示例里 <code>[recording] enabled</code> 与 <code>auto_start</code> 默认是 <code>true</code>。课堂片段要先关掉，而且只是摘录，并未运行。HTTP 端口还是控制面（如查询、结束通话、读写 Playbook）；<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/api.md">API 文档</a>的 Authentication 只写多数端点需要 WebSocket 升级，未描述 REST 令牌鉴权。不能因为示例没写 token 就当成已鉴权，也不要把这个端口对公网开放。</p>
+
+<p class="source">课堂片段（未运行，不是官方默认文件）。端口数字跟自 <code>active-call.example.toml</code>；录音已关闭；<code>http_addr</code> 收到本机，仅为课堂收紧，官方示例常见 <code>0.0.0.0:8080</code>。</p>
+<pre><code>http_addr = "127.0.0.1:8080"
+udp_port = 13050
+
+[recording]
+enabled = false
+auto_start = false</code></pre>
+
+<h2>练习</h2>
+<div class="task">
+<p class="q">先不要往下看。你正在用的配置文件里写着 <code>http_addr = "127.0.0.1:8080"</code>、<code>udp_port = 13050</code>。同事按中文配置指南说 SIP 端口是 25060。要把实验 PBX 对上这条 SIP 入口，该填哪个端口？若只是打开本机网页或调用 HTTP API，又该连哪一个？请说明理由。</p>
+<details>
+<summary>先答完再展开</summary>
+<p>SIP 入口填 <strong>13050</strong>，因为以正在用的配置为准，不能照抄指南里的 25060。网页和 HTTP API 走 <code>http_addr</code>，也就是 <code>127.0.0.1:8080</code>。这两个端口不是一回事。本课未运行，也不对接真实电话网。</p>
+</details>
+</div>
+
+<h2>主要阅读</h2>
+<p>请对照固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a>（crate 0.3.120）的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/active-call.example.toml"><code>active-call.example.toml</code></a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/config_guide.md">中文配置指南</a>（基础配置与文末 FAQ）和 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/Dockerfile">Dockerfile</a>。本页是非官方学习课文，不是官方文档。</p>
+<p>端口对照也可随时查看 <a href="../reference/config-ports-safety.html">端口速查</a>。上一课：<a href="0003-playbook-and-webhook.html">两种呼入处理器</a>。</p>
+<p>有不清楚的，直接问我。</p>
+<p>下一课预告：读懂官方 Hello Playbook。课文尚未发布，到时再开始。</p>
+<p class="source">目录：<a href="../index.html">课程索引</a>。本课不含个人进度，也尚未运行任何服务。</p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）· 课文 2026-11-22</footer>
+</body>
+</html>
