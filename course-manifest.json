@@ -12,23 +12,27 @@
   },
   "learning_repo": {
     "repository": "penanegrarenea-ship-it/active-call-learning",
-    "lessons_commit": "918894a65b565fc9eaa8daa10b2e6ec53f04b3f9",
-    "lessons_commit_note": "这是引入当前首页、课文、速查和样式的提交，可用 git show 该哈希核对。它不是写入本字段的这次提交。"
+    "lessons_commit": null,
+    "lessons_commit_note": "只记录引入当前首页、课文、速查和样式的 git 提交全文哈希。该提交必须能被 git 检出核对，并且不得等于写入本字段的那次提交。加入第 3 课时先留空，不用旧提交或占位假值。"
   },
   "pages_allowlist": [
     "index.html",
     "lessons/0001-what-is-active-call.html",
     "lessons/0002-three-call-entries.html",
+    "lessons/0003-playbook-and-webhook.html",
     "reference/what-is-active-call.html",
     "reference/three-call-entries.html",
+    "reference/playbook-and-webhook.html",
     "assets/style.css"
   ],
   "pages_sha256": {
-    "index.html": "9e6ee8c45ceaa85472d0bf0666c7b24a182032b94ccb63423e8083eff958b2df",
+    "index.html": "64dc8457d951927c289c9554b811ffebd839a27256573e7d8d640c54bfc6f9ec",
     "lessons/0001-what-is-active-call.html": "b07bbef12faf0420e096305d633647343654b103061d687f20bfe524e0ac458c",
-    "lessons/0002-three-call-entries.html": "2610f73cf18add46c46e6f4987e20c274676c0782391f5f9c5034eef4c6ef2b6",
+    "lessons/0002-three-call-entries.html": "a0addef2ea27ba5fa13b0f4ddd2924cf533ed237d0246079056db131ee401888",
+    "lessons/0003-playbook-and-webhook.html": "d5b310186542c113bbc234cdea1917bc8c66cf98af8bc719113da07e478126ca",
     "reference/what-is-active-call.html": "857b4149ce5ac53fffee692ceb0e05f0f37a792990bb20fcbafc67c25b01fa12",
     "reference/three-call-entries.html": "e4d387c052d4a731bc9112061b12841a70ba76f3e4de857cffac3b627741e68f",
+    "reference/playbook-and-webhook.html": "2713ef751a6b3fd93fc557ba70b01cf743f1688a16e5c65e3218ab83ce6c8f8f",
     "assets/style.css": "1b9f7343ff68f5071a993e4eaba6eb4be6335195cdf271bdc35dc001f552d6be"
   },
   "lessons": [
@@ -52,9 +56,9 @@
       "lesson_id": "playbook-and-webhook",
       "number": 3,
       "title": "Playbook 与 Webhook",
-      "status": "planned",
-      "path": null,
-      "reference_path": null
+      "status": "readable",
+      "path": "lessons/0003-playbook-and-webhook.html",
+      "reference_path": "reference/playbook-and-webhook.html"
     },
     {
       "lesson_id": "config-port-safety",
