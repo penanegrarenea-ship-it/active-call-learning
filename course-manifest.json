@@ -16,14 +16,14 @@
     "lessons_commit_note": "引入前三课课文、当时的首页、速查和样式。未列入 content_commits 的已发布文件必须与该提交的 blob 一致。",
     "content_commits": [
       {
-        "commit": null,
+        "commit": "19a8bbc7507331e6b548e3c1b4075aaae3e4282f",
         "paths": [
           "index.html",
           "lessons/0003-playbook-and-webhook.html",
           "lessons/0004-config-ports-safety.html",
           "reference/config-ports-safety.html"
         ],
-        "note": "第 4 课、更新后的目录，以及第 3 课指向第 4 课的链接。commit 在这些文件进入 git 之后写入那次提交，不写成包含本字段的提交。"
+        "note": "第 4 课、更新后的目录，以及第 3 课指向第 4 课的链接。这是这些文件进入 git 的提交，不是写入本字段的那次提交。"
       }
     ]
   },
