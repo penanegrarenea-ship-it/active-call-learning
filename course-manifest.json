@@ -12,8 +12,8 @@
   },
   "learning_repo": {
     "repository": "penanegrarenea-ship-it/active-call-learning",
-    "lessons_commit": null,
-    "lessons_commit_note": "只记录引入当前首页、课文、速查和样式的 git 提交全文哈希。该提交必须能被 git 检出核对，并且不得等于写入本字段的那次提交。加入第 3 课时先留空，不用旧提交或占位假值。"
+    "lessons_commit": "1eee016a7e82b6151dc3ce54df48337195e34b23",
+    "lessons_commit_note": "这是引入当前首页、三课课文、速查和样式的提交，可用 git show 该哈希核对。它不是写入本字段的这次提交。"
   },
   "pages_allowlist": [
     "index.html",
