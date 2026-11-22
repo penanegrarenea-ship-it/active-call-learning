@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>速查：Playbook 与 Webhook 处理器</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 处理器速查 · 非官方 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>Playbook 与 Webhook 处理器</h1>
+<p class="lede">供以后重开。入口和处理器不是一层。不是官方文档，也不表示已经掌握。</p>
+<ul>
+<li>入口：声音怎么接进来（浏览器 WebRTC、SIP、程序推音频）。</li>
+<li>处理器：接进来之后按什么逻辑处理。</li>
+<li>Playbook：本地 Markdown + YAML 前置，用正文声明场景。</li>
+<li>Webhook 处理器：外部 HTTP 服务。配置指南写的是，把呼入请求转过去，由它决定如何处理。</li>
+<li>Playbook 里的 HTTP 工具（如官方 <code>webhook_example.md</code>）不是呼入 Webhook 处理器。</li>
+</ul>
+<p class="note">已读文档未写清：外部服务是否接手整段语音、是否每段音频都经 HTTP 发出、完整返回约定，以及「呼入处理配置」这一节（开篇为两种 SIP 呼入处理方式）是否同样用于另外两条入口。均待核实。</p>
+<p class="source">出处：固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a> 的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/config_guide.md#呼入处理配置">docs/zh/config_guide.md</a>（呼入处理配置）、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/playbook_tutorial.md">docs/zh/playbook_tutorial.md</a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/README.md">README.md</a>。对照用的示例 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/webhook_example.md">webhook_example.md</a> 是 Playbook 内的 HTTP 工具示范，不是处理器本身。</p>
+<p class="source">对应课文：<a href="../lessons/0003-playbook-and-webhook.html">第 3 课</a> · <a href="../lessons/0002-three-call-entries.html">第 2 课</a> · <a href="../index.html">课程索引</a></p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）</footer>
+</body>
+</html>

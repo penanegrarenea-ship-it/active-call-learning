@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 1 课：active-call 是什么</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 第 1 课 · 非官方课程 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>项目定位：把 AI 对话接到通信</h1>
+<p class="lede">约 3 分钟。本课只记一件事：active-call 是独立可执行程序，也是 crate，用来把 AI 对话接到通信。本课无需安装，下面的流程只是示意，尚未运行。</p>
+
+<h2>它是什么</h2>
+<p>官方 README 写道：它是一个独立的 Rust crate，用来搭建 AI 语音 Agent，把 AI 模型与现实中的电话和网络通信接起来。</p>
+<p>在本课里，记住两层意思就够：</p>
+<ul>
+<li>它是<strong>可执行程序</strong>：要先运行 <code>active-call</code> 服务，入口传来的声音才能被接进去。</li>
+<li>它也是<strong>crate</strong>：可以按仓库文档编译或引用。本课不讲 Rust，也不下钻依赖。</li>
+</ul>
+<p>网页只是通话入口。把声音接到已配置的识别、对话、合成等能力上的，是正在运行的 active-call 服务。</p>
+
+<h2>一个最小情景（仅示意）</h2>
+<ol class="flow">
+<li>你在网页里说话</li>
+<li>正在运行的 active-call 接到声音</li>
+<li>它按已有配置，调用语音或模型能力</li>
+<li>把回复送回网页</li>
+</ol>
+<p class="note">这是示意，不是一次已验证的运行。本课不必先安装。这些语音或模型能力来自配置（可能是本地模型，也可能是云服务），<strong>不是</strong>程序自身无条件内置的离线全套模型。文档里的离线 ASR/TTS 仍需按说明准备模型，对话模型也常常要另行配置。</p>
+
+<h2>练习</h2>
+<div class="task">
+<p class="q">先不要往下看。用自己的话回答：只有网页，没有运行 active-call 服务，能否按这套方案与 AI 通话？为什么？</p>
+<details>
+<summary>先答完再展开</summary>
+<p><strong>不能。</strong>网页只是入口；没有正在运行的 active-call 服务，声音到不了已配置的语音或模型能力，也就无法按这套方案完成通话。</p>
+</details>
+<p>再做一句迁移，确认你抓的是职责，而不是在背课文：假如有人说「active-call 就是那个大模型，打开网页就能离线聊天」，请改成一句更准确的话。</p>
+<details>
+<summary>先改完再展开</summary>
+<p>可以改成：active-call 是把 AI 对话接到通信的可执行程序（也是 crate）；网页只是入口，语音和模型能力来自配置，不是它无条件自带的离线全套。</p>
+</details>
+</div>
+
+<h2>主要阅读</h2>
+<p>请打开官方仓库 README（固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a>，crate 0.3.120）：<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/README.md">README.md</a>。中文目录在 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/README.md">docs/zh/README.md</a>。本页是非官方学习课文，不是官方文档。</p>
+<p>本课要点也可随时查看 <a href="../reference/what-is-active-call.html">定位速查</a>。</p>
+<p>有不清楚的，直接问我。</p>
+<p>下一课：<a href="0002-three-call-entries.html">三种呼叫入口</a>。</p>
+<p class="source">目录：<a href="../index.html">课程索引</a>。本课不含个人进度，也尚未运行任何服务。</p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）· 课文 2026-11-22</footer>
+</body>
+</html>

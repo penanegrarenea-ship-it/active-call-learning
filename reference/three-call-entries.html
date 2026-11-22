@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>速查：三种呼叫入口</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 入口速查 · 非官方 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>三种呼叫入口</h1>
+<p class="lede">供以后重开。先看音频是谁送来的。不是官方文档，也不表示已经掌握。</p>
+<table>
+<thead>
+<tr><th>入口</th><th>音频从哪里来</th></tr>
+</thead>
+<tbody>
+<tr><td>A 浏览器 WebRTC</td><td>网页里的麦克风。须 HTTPS 或 <code>127.0.0.1</code>。网页只是入口。</td></tr>
+<tr><td>B SIP</td><td>SIP 话机，或实验用的 PBX / 网关。</td></tr>
+<tr><td>C Voice over WebSocket</td><td>自己的程序推送音频流。</td></tr>
+</tbody>
+</table>
+<p>三条入口背后都要有正在运行的 active-call。SIP 也可以走 WebSocket 传输，那是 SIP 信令的承载，和入口 C 不是同一件事。</p>
+<p class="source">出处：固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a> 的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/README.md">README.md</a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/README.md">docs/zh/README.md</a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/config_guide.md">docs/zh/config_guide.md</a>（呼叫场景 1–3）。</p>
+<p class="source">对应课文：<a href="../lessons/0002-three-call-entries.html">第 2 课</a> · <a href="../lessons/0001-what-is-active-call.html">第 1 课</a> · <a href="../index.html">课程索引</a></p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）</footer>
+</body>
+</html>

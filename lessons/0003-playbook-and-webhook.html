@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 3 课：两种呼入处理器</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 第 3 课 · 非官方课程 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>两种呼入处理器：Playbook 与 Webhook</h1>
+<p class="lede">约 3 分钟。本课只记一件事：入口管怎么接进来，处理器管接进来之后按什么逻辑处理。本课不写代码、无需安装，对照尚未运行。</p>
+
+<p>上一课对照的是三种入口：音频从浏览器、SIP 设备还是自己的程序送来。入口选好以后，还要决定来话按什么逻辑处理。这两层不是一回事。</p>
+
+<table>
+<thead>
+<tr><th></th><th>它是什么</th><th>怎么记</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Playbook</td>
+<td>本地的 Markdown 文件</td>
+<td>用 YAML 前置声明配置，用正文写场景和提示词。来话按这份稿走。</td>
+</tr>
+<tr>
+<td>Webhook 处理器</td>
+<td>外部的 HTTP 服务</td>
+<td>配置指南写的是：把呼入请求转到这个服务，由它决定如何处理。</td>
+</tr>
+</tbody>
+</table>
+
+<p>不要和另一件事混在一起：Playbook 进行中也可以用 HTTP 工具去问业务接口。官方示例 <code>webhook_example.md</code> 就是这类场景稿，它<strong>不是</strong>呼入 Webhook 处理器。</p>
+
+<p class="note">已读的官方文档没有写清：外部服务会不会接手整段语音处理，会不会把每段音频都经 HTTP 发出，以及它应返回什么。配置指南把这两种处理器写在「呼入处理配置」一节，开篇说明这是两种 SIP 呼入处理方式；它们是否同样用于另外两条入口，也未写清。以上均待核实。本课不把这些写成已知事实，也不展开接口字段或鉴权。</p>
+
+<h2>两个对照情景</h2>
+<ol>
+<li>想在本机放一份场景稿，写好欢迎和简单问答。这时用 <strong>Playbook</strong>。</li>
+<li>已经有一套外部系统，希望来话先交给它，再决定怎么处理。这时用 <strong>Webhook 处理器</strong>。</li>
+</ol>
+
+<h2>练习</h2>
+<div class="task">
+<p class="q">先不要往下看。实验环境里已经可以用 SIP 分机打进来。你想先用一份本地的欢迎场景稿来处理来话，暂时不接到外部系统。这时该选哪一种处理器？它和「选 SIP 入口」是同一件事吗？请说明理由。</p>
+<details>
+<summary>先答完再展开</summary>
+<p>选 <strong>Playbook</strong>，因为处理逻辑写在本地场景稿里，还没有要交给外部 HTTP 服务去决定。选 SIP 入口只说明声音从分机或实验 PBX 进来；选处理器是进来之后按什么逻辑处理。这两件事不是同一层。本课不运行、不拨真实号码。</p>
+</details>
+</div>
+
+<h2>主要阅读</h2>
+<p>请对照固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a>（crate 0.3.120）：<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/config_guide.md#呼入处理配置">配置指南的呼入处理配置</a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/playbook_tutorial.md">Playbook 中文教程</a>开头关于文件结构的说明，以及 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/README.md">仓库 README</a> 里用启动参数选择处理器的例子。本页是非官方学习课文，不是官方文档。</p>
+<p>对照也可随时查看 <a href="../reference/playbook-and-webhook.html">处理器速查</a>。上一课：<a href="0002-three-call-entries.html">三种呼叫入口</a>。</p>
+<p>有不清楚的，直接问我。</p>
+<p>下一课预告：配置文件、端口与安全边界。课文尚未发布，到时再开始。</p>
+<p class="source">目录：<a href="../index.html">课程索引</a>。本课不含个人进度，也尚未运行任何服务。</p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）· 课文 2026-11-22</footer>
+</body>
+</html>
