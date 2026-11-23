@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 9 课：通话入口与控制接口</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 第 9 课 · 非官方课程 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>先分清通话入口和控制接口</h1>
+<p class="lede">约 3 分钟。本课只记一件事：有的路径用来接通话，有的路径用来查询或控制已经存在的通话。不要把这两类混成一件事。本课只读文档和路由，不发送任何请求。</p>
+
+<p>对照固定提交的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/api.md"><code>docs/api.md</code></a>，并用 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/src/handler/handler.rs#L39-L49"><code>call_router</code></a> 核对注册方式。文档把前三条放在「WebSocket Call Endpoints」，把 <code>/list</code>、<code>/kill/{id}</code> 放在「REST API Endpoints」。源码里这五条都注册为 <code>GET</code>。前三条的处理函数接收 WebSocket 升级；后两条不接收升级，只读通话表或取消指定会话。</p>
+
+<p class="source">摘录（不完整，只列路径，不可当作可执行命令）</p>
+<pre><code>GET /call
+GET /call/webrtc
+GET /call/sip
+
+GET /list
+GET /kill/{id}</code></pre>
+<p class="source">路径取自文档的端点行，方法与该提交的路由一致。官方样例里还有指向本机的调用写法，本课不抄，以免被误发送。</p>
+
+<p>前三条是通话入口，升级之后音频走的路不同：<code>/call</code> 经 WebSocket 传音频，<code>/call/webrtc</code> 走 WebRTC，<code>/call/sip</code> 把通话类型标成 SIP，音频走 SIP/RTP。这里的 HTTP 是注册路径的方法；WebSocket 是通话入口要求的升级。二者不是同一层，不能互相代替。<code>/call/sip</code> 不是第 4 课的 SIP UDP 端口，也不是第 3 课的呼入 Webhook 处理器。</p>
+
+<p>后两条是控制或查询：<code>/list</code> 返回当前活动通话的 JSON，<code>/kill/{id}</code> 按路径里的会话 ID 取消该通话。文档里还有命令、事件流、Playbook 和记录等路径，本课不展开。</p>
+
+<p class="note">Authentication 只写：多数端点需要 WebSocket 升级才能做实时通信。这句话说的是升级，不是令牌或登录。该提交的路由没有给这些处理函数加令牌参数，文档也没有描述 REST 令牌。样例里没有 token，不能当成已经安全，也不能当成「没有别的访问控制」的证明。控制接口不要对公网开放。本课不发起通话、不终止通话、不调用付费接口。</p>
+
+<h2>练习</h2>
+<div class="task">
+<p class="q">先不要往下看。<code>/call/webrtc</code> 和 <code>/list</code> 各属于哪一类：通话入口，还是控制/查询接口？请再指出摘录里哪一条是用来终止通话的。只根据文档和上面的路径作答，不要发送请求。</p>
+<details>
+<summary>先答完再展开</summary>
+<p><code>/call/webrtc</code> 是通话入口。<code>/list</code> 是控制/查询接口，用来列出活动通话。用来终止通话的是 <code>/kill/{id}</code>。本课只读材料，未发送任何请求。</p>
+</details>
+</div>
+
+<h2>主要阅读</h2>
+<p>请打开固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a>（crate 0.3.120）的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/api.md">docs/api.md</a>：Authentication、WebSocket Call Endpoints，以及 REST 里的 List Active Calls、Kill Call。路由见 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/src/handler/handler.rs#L39-L93"><code>src/handler/handler.rs</code></a>。本页是非官方学习课文，不是官方文档。</p>
+<p>对照也可随时查看 <a href="../reference/http-websocket-api.html">API 速查</a>。上一课：<a href="0008-dtmf-and-tools.html">按键 DTMF 与动作标签</a>。</p>
+<p>有不清楚的，直接问我。</p>
+<p>下一课预告：浏览器隔离演练。</p>
+<p class="source">目录：<a href="../index.html">课程索引</a>。本课不含个人进度，也尚未运行任何服务。</p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）· 课文 2026-11-24</footer>
+</body>
+</html>
