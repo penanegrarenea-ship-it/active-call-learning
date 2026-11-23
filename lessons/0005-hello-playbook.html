@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 5 课：Hello Playbook</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 第 5 课 · 非官方课程 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>Hello Playbook：先分清 YAML 前置和正文</h1>
+<p class="lede">约 3 分钟。本课只记一件事：Playbook 开头的 YAML 前置是配置，后面的 Markdown 是场景或角色正文；改开场欢迎语，先找前置里的 <code>greeting</code>。下面是官方文件的摘录，本课只读、不运行。</p>
+
+<p>官方教程写道：Playbook 采用 Markdown 格式，用 Front Matter（YAML）定义引擎参数，用 Markdown 内容定义流程、场景和提示词。本课对照的是同提交里真实存在的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/hello.md"><code>config/playbook/hello.md</code></a>。该提交的 Playbook 目录里没有 <code>demo.md</code>，不要拿它当作业。</p>
+
+<p class="source">摘录一：YAML 前置里和本课有关的几行。行与行之间有省略，不能当成完整文件，也不可直接运行。</p>
+<pre><code>---
+asr:
+  provider: "sensevoice"
+  # sensevoice is local provider
+  # ...
+llm:
+  provider: "aliyun"
+  # ...
+tts:
+  provider: "supertonic"  # aliyun, tencent, supertonic
+  # supertonic is local provider
+  # ...
+greeting: "Hello, how can i help you?"
+---</code></pre>
+
+<p class="source">摘录二：后面的 Markdown 正文（同样不完整）</p>
+<pre><code># Role and Purpose
+You are an intelligent, polite AI assistant. Your goal is to help users with their inquiries efficiently.</code></pre>
+
+<p>两段中间隔着结束前置的 <code>---</code>。教程把 <code>greeting</code> 放在 YAML 前置的交互配置里；这份 hello 的开场欢迎语就是这一行。正文从 <code># Role and Purpose</code> 起，写的是助手角色。这份文件里没有 <code># Scene:</code> 小节，多场景写法下一课再讲。</p>
+
+<p class="note">文件注释写 sensevoice、supertonic 是本地提供者，但 <code>llm</code> 写的是 <code>aliyun</code>，可能走云服务并产生费用。不要把这份示例当成已经跑通的免费离线全套。完整文件里还有录音等项，本课不展开。只做静态阅读：不运行 active-call，不发起呼叫，不下载模型。</p>
+
+<h2>练习</h2>
+<div class="task">
+<p class="q">先不要往下看。要改这份官方 <code>hello.md</code> 里的开场欢迎语 <code>Hello, how can i help you?</code>，应该改文件的哪一部分、哪一行？它属于 YAML 前置，还是 Markdown 正文？</p>
+<details>
+<summary>先答完再展开</summary>
+<p>改 YAML 前置里的 <code>greeting: "Hello, how can i help you?"</code> 这一行，不是改后面的 <code># Role and Purpose</code> 正文。本课只读文件，未运行。</p>
+</details>
+</div>
+
+<h2>主要阅读</h2>
+<p>请打开固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a>（crate 0.3.120）的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/hello.md"><code>config/playbook/hello.md</code></a> 全文，并对照 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/playbook_tutorial.md">Playbook 中文教程</a>开头的基本结构与交互配置中的 <code>greeting</code>。本页是非官方学习课文，不是官方文档。</p>
+<p>结构对照也可随时查看 <a href="../reference/hello-playbook.html">Hello Playbook 速查</a>。上一课：<a href="0004-config-ports-safety.html">配置与端口</a>。</p>
+<p>有不清楚的，直接问我。</p>
+<p>下一课预告：YAML 前置与多场景写法。</p>
+<p class="source">目录：<a href="../index.html">课程索引</a>。本课不含个人进度，也尚未运行任何服务。</p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）· 课文 2026-11-23</footer>
+</body>
+</html>
