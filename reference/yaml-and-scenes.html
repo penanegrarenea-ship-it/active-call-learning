@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>速查：YAML 前置与场景声明</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 场景声明速查 · 非官方 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>YAML 前置与 <code># Scene:</code></h1>
+<p class="lede">供以后重开。对照官方 <code>config/playbook/multi_scene.md</code>。不是官方文档，也不表示已经掌握，也尚未运行。</p>
+<ul>
+<li>开头一对 <code>---</code> 之间仍是 YAML 前置，写引擎等配置。</li>
+<li>场景用正文里的 <code># Scene: 名称</code> 声明。官方 hello 没有这种标题。</li>
+<li>场景名称（如 <code>greeting</code>）不是上一课 YAML 里的 <code>greeting:</code> 字段。</li>
+<li>教程写切换场景时会更新 System Prompt。官方示例用 <code>&lt;goto scene="..." /&gt;</code> 写出转向；不要假定标题顺序会自动把后面的场景执行完。已读材料没有写明默认起点。</li>
+<li>这份 multi_scene 的引擎项写的是 <code>openai</code>，不是已跑通的免费离线全套。</li>
+</ul>
+<p class="source">出处：固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a> 的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/multi_scene.md">config/playbook/multi_scene.md</a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/playbook_tutorial.md">docs/zh/playbook_tutorial.md</a>（基本结构与场景管理）。</p>
+<p class="source">对应课文：<a href="../lessons/0006-yaml-and-scenes.html">第 6 课</a> · <a href="../lessons/0005-hello-playbook.html">第 5 课</a> · <a href="../index.html">课程索引</a></p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）</footer>
+</body>
+</html>

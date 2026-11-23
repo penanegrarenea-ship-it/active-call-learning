@@ -34,6 +34,16 @@
           "reference/hello-playbook.html"
         ],
         "note": "第 5 课、更新后的目录，以及第 4 课指向第 5 课的链接。这是这些文件当前字节进入 git 的提交，不是写入本字段的那次提交。上一条记录保留。"
+      },
+      {
+        "commit": "5b097359c9c94a9bb57c8eb4a5cd76a0a9fc0d29",
+        "paths": [
+          "index.html",
+          "lessons/0005-hello-playbook.html",
+          "lessons/0006-yaml-and-scenes.html",
+          "reference/yaml-and-scenes.html"
+        ],
+        "note": "第 6 课、更新后的目录，以及第 5 课指向第 6 课的链接。这是这些文件当前字节进入 git 的提交，不是写入本字段的那次提交。前面的记录保留。"
       }
     ]
   },
@@ -44,25 +54,29 @@
     "lessons/0003-playbook-and-webhook.html",
     "lessons/0004-config-ports-safety.html",
     "lessons/0005-hello-playbook.html",
+    "lessons/0006-yaml-and-scenes.html",
     "reference/what-is-active-call.html",
     "reference/three-call-entries.html",
     "reference/playbook-and-webhook.html",
     "reference/config-ports-safety.html",
     "reference/hello-playbook.html",
+    "reference/yaml-and-scenes.html",
     "assets/style.css"
   ],
   "pages_sha256": {
-    "index.html": "966f4bb60431a4fbe6e1cac4ff1a7479a8d1c628338d351e77dedb4755b870f2",
+    "index.html": "b70c0a694a6985a5a904e14aad2a9e18e710d04210017c78dd5d0f22b2465215",
     "lessons/0001-what-is-active-call.html": "b07bbef12faf0420e096305d633647343654b103061d687f20bfe524e0ac458c",
     "lessons/0002-three-call-entries.html": "a0addef2ea27ba5fa13b0f4ddd2924cf533ed237d0246079056db131ee401888",
     "lessons/0003-playbook-and-webhook.html": "25babd7a8c1ff4df6747ece1326377b4026315d8a382a4c75d60e368f03b0d10",
     "lessons/0004-config-ports-safety.html": "893b805f820e7d9459bd8706494a79d017e5ea07d197f03d137a5ed01b5bd43a",
-    "lessons/0005-hello-playbook.html": "eee37211b1f2d39fbde736352b60fb4099f783b64694853714f60d08d3025b16",
+    "lessons/0005-hello-playbook.html": "da29a601f5009d2afc80a9b864e1e300aeebace825c058fac1775226eb463561",
+    "lessons/0006-yaml-and-scenes.html": "14e9fd42bab0478bd6ebe1fdaefec228cac675294ca1089f6bee47d5dab68145",
     "reference/what-is-active-call.html": "857b4149ce5ac53fffee692ceb0e05f0f37a792990bb20fcbafc67c25b01fa12",
     "reference/three-call-entries.html": "e4d387c052d4a731bc9112061b12841a70ba76f3e4de857cffac3b627741e68f",
     "reference/playbook-and-webhook.html": "2713ef751a6b3fd93fc557ba70b01cf743f1688a16e5c65e3218ab83ce6c8f8f",
     "reference/config-ports-safety.html": "e433e8b7b8b111b456f85c109c6f5ecf9e9e18321238639a4a9bfdc4bf7137b1",
     "reference/hello-playbook.html": "0a36660bb1cbf052e68fe4c11dea98f985b94a4ffef30c77f250d63f7fc972a3",
+    "reference/yaml-and-scenes.html": "ea24f60d8fbe50875a0c435590f870c20070c1dc487f8cd5cebd5841bebded41",
     "assets/style.css": "1b9f7343ff68f5071a993e4eaba6eb4be6335195cdf271bdc35dc001f552d6be"
   },
   "lessons": [
@@ -110,9 +124,9 @@
       "lesson_id": "yaml-scenarios",
       "number": 6,
       "title": "YAML 场景",
-      "status": "planned",
-      "path": null,
-      "reference_path": null
+      "status": "readable",
+      "path": "lessons/0006-yaml-and-scenes.html",
+      "reference_path": "reference/yaml-and-scenes.html"
     },
     {
       "lesson_id": "variables",

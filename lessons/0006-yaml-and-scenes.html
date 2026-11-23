@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 6 课：YAML 前置与场景声明</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 第 6 课 · 非官方课程 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>YAML 前置与 <code># Scene:</code> 声明</h1>
+<p class="lede">约 3 分钟。本课只记一件事：场景标题写在 Markdown 正文里，形式是 <code># Scene: 名称</code>；它不是 YAML 前置里的配置项。上一课的官方 hello 没有这种标题，所以要换一份真实有场景的例子来看。</p>
+
+<p>对照同提交里的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/multi_scene.md"><code>config/playbook/multi_scene.md</code></a>。官方教程把 <code># Scene: ...</code> 写在正文中，用来定义不同的对话阶段。该提交的 Playbook 目录里仍然没有 <code>demo.md</code>，不要拿它当作业。</p>
+
+<p class="source">摘录（不完整，不可直接运行）</p>
+<pre><code>---
+asr:
+  provider: "openai"
+tts:
+  provider: "openai"
+llm:
+  provider: "openai"
+---
+
+# Scene: greeting
+You are a friendly AI receptionist for "CloudTech Solutions".
+- If the user says "yes" or expresses interest, tell them you'll give some details and switch to the next stage using: &lt;goto scene="product_info" /&gt;
+
+# Scene: product_info
+You are now explaining our AI services.</code></pre>
+<p class="source">上面是结构摘录：场景标题下省略了播放、按键等行，完整文件里还有 signup、closing 等场景。未改官方用词。</p>
+
+<p>一对 <code>---</code> 之间仍是 YAML 前置，这里配置的是引擎一类选项。第二个 <code>---</code> 之后才是正文。<code># Scene: greeting</code> 和 <code># Scene: product_info</code> 是正文里的场景声明，不是前置字段。这份文件的前置里也没有上一课那种 <code>greeting:</code> 键；这里的 <code>greeting</code> 只是场景名称。</p>
+
+<p>教程写：切换场景时会更新 System Prompt。上面摘录里，官方示例用 <code>&lt;goto scene="product_info" /&gt;</code> 写出转向。不要把标题在文件中出现的先后，理解成后面的场景会自动按顺序执行完。已读的这份文件和教程「场景管理」没有写明默认从哪个场景开始，本课不把第一个标题当成起点。按键、转接和变量本课不展开。</p>
+
+<p class="note">这份示例的 asr、tts、llm 都写 <code>openai</code>，可能走云服务并产生费用。这是不完整摘录，不可直接运行，也不要当成已经跑通的免费离线全套。完整文件里还有按键、播放和转接等项，本课只读、不运行、不发起呼叫、不下载模型。</p>
+
+<h2>练习</h2>
+<div class="task">
+<p class="q">先不要往下看。在这份官方摘录里，<code># Scene: greeting</code> 属于 YAML 前置，还是 Markdown 正文？它和前置里的 <code>asr</code> / <code>llm</code> 有什么不同？请再指出摘录里的另一个场景标题。</p>
+<details>
+<summary>先答完再展开</summary>
+<p><code># Scene: greeting</code> 写在 Markdown 正文里，不是 YAML 前置。前置里的 <code>asr</code> / <code>llm</code> 是引擎配置；场景标题用来声明对话阶段。摘录里另一个场景标题是 <code># Scene: product_info</code>。本课只读文件，未运行。</p>
+</details>
+</div>
+
+<h2>主要阅读</h2>
+<p>请打开固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a>（crate 0.3.120）的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/multi_scene.md"><code>config/playbook/multi_scene.md</code></a> 全文，并对照 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/playbook_tutorial.md">Playbook 中文教程</a>开头的基本结构与「场景管理」一节。也可回顾没有场景标题的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/hello.md">hello.md</a>。本页是非官方学习课文，不是官方文档。</p>
+<p>结构对照也可随时查看 <a href="../reference/yaml-and-scenes.html">场景声明速查</a>。上一课：<a href="0005-hello-playbook.html">Hello Playbook</a>。</p>
+<p>有不清楚的，直接问我。</p>
+<p>下一课预告：配置期变量与呼叫期变量。</p>
+<p class="source">目录：<a href="../index.html">课程索引</a>。本课不含个人进度，也尚未运行任何服务。</p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）· 课文 2026-11-23</footer>
+</body>
+</html>
