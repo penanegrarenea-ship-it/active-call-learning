@@ -54,6 +54,16 @@
           "reference/variables.html"
         ],
         "note": "第 7 课、更新后的目录，以及第 6 课指向第 7 课的链接。这是这些文件当前字节进入 git 的提交，不是写入本字段的那次提交。前面的记录保留。"
+      },
+      {
+        "commit": null,
+        "paths": [
+          "index.html",
+          "lessons/0007-variables.html",
+          "lessons/0008-dtmf-and-tools.html",
+          "reference/dtmf-and-tools.html"
+        ],
+        "note": "第 8 课、更新后的目录，以及第 7 课指向第 8 课的链接。commit 在这些文件进入 git 之后写入，不写成包含本字段的提交。前面的记录保留。"
       }
     ]
   },
@@ -66,6 +76,7 @@
     "lessons/0005-hello-playbook.html",
     "lessons/0006-yaml-and-scenes.html",
     "lessons/0007-variables.html",
+    "lessons/0008-dtmf-and-tools.html",
     "reference/what-is-active-call.html",
     "reference/three-call-entries.html",
     "reference/playbook-and-webhook.html",
@@ -73,17 +84,19 @@
     "reference/hello-playbook.html",
     "reference/yaml-and-scenes.html",
     "reference/variables.html",
+    "reference/dtmf-and-tools.html",
     "assets/style.css"
   ],
   "pages_sha256": {
-    "index.html": "cdb4e358e9e0289f91f8645da8cc63019920de697dbfe41110a43f5542391354",
+    "index.html": "1553c8adcd57ffe72db9f2fc66d718c066511949ba4925d1768da2847e7c5d30",
     "lessons/0001-what-is-active-call.html": "b07bbef12faf0420e096305d633647343654b103061d687f20bfe524e0ac458c",
     "lessons/0002-three-call-entries.html": "a0addef2ea27ba5fa13b0f4ddd2924cf533ed237d0246079056db131ee401888",
     "lessons/0003-playbook-and-webhook.html": "25babd7a8c1ff4df6747ece1326377b4026315d8a382a4c75d60e368f03b0d10",
     "lessons/0004-config-ports-safety.html": "893b805f820e7d9459bd8706494a79d017e5ea07d197f03d137a5ed01b5bd43a",
     "lessons/0005-hello-playbook.html": "da29a601f5009d2afc80a9b864e1e300aeebace825c058fac1775226eb463561",
     "lessons/0006-yaml-and-scenes.html": "c7622ce2a1b3413fd17b88c3aae059b6da81e8bc8fd962aea7c9d87321c3f722",
-    "lessons/0007-variables.html": "49d9fd59845861a3fa4467b83f5ff9d99f05a07ef1ad7da7c61c404b42ec42f2",
+    "lessons/0007-variables.html": "de0c06956b4cda1eb4bbb4ca2adbe36e68984cc6f31cfb887489de8d541f455e",
+    "lessons/0008-dtmf-and-tools.html": "d81d670bbf4bf3771770b77d7deaa1b13377f7241d406beeae3825df6a8e8a99",
     "reference/what-is-active-call.html": "857b4149ce5ac53fffee692ceb0e05f0f37a792990bb20fcbafc67c25b01fa12",
     "reference/three-call-entries.html": "e4d387c052d4a731bc9112061b12841a70ba76f3e4de857cffac3b627741e68f",
     "reference/playbook-and-webhook.html": "2713ef751a6b3fd93fc557ba70b01cf743f1688a16e5c65e3218ab83ce6c8f8f",
@@ -91,6 +104,7 @@
     "reference/hello-playbook.html": "0a36660bb1cbf052e68fe4c11dea98f985b94a4ffef30c77f250d63f7fc972a3",
     "reference/yaml-and-scenes.html": "ea24f60d8fbe50875a0c435590f870c20070c1dc487f8cd5cebd5841bebded41",
     "reference/variables.html": "285ab66debdb2cd26c674402c4f76d5d32d8860e629789dcac2aa786b5f3dfe5",
+    "reference/dtmf-and-tools.html": "c77265a526decf8a9297065db8f9d550df8e26d8c49126b11e8b0b57ea3d6931",
     "assets/style.css": "1b9f7343ff68f5071a993e4eaba6eb4be6335195cdf271bdc35dc001f552d6be"
   },
   "lessons": [
@@ -154,9 +168,9 @@
       "lesson_id": "dtmf-tools",
       "number": 8,
       "title": "DTMF 工具",
-      "status": "planned",
-      "path": null,
-      "reference_path": null
+      "status": "readable",
+      "path": "lessons/0008-dtmf-and-tools.html",
+      "reference_path": "reference/dtmf-and-tools.html"
     },
     {
       "lesson_id": "http-websocket-api",

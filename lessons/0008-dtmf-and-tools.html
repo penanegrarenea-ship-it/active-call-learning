@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 8 课：按键 DTMF 与动作标签</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 第 8 课 · 非官方课程 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>按键 DTMF 与动作标签</h1>
+<p class="lede">约 3 分钟。本课只记一件事：电话上的按键是 DTMF 信号；Playbook 用正文里的动作标签，声明某个按键对应什么动作。下面只看「按 1 跳到另一个场景」这一种官方写法。</p>
+
+<p>对照同提交里的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/multi_scene.md"><code>config/playbook/multi_scene.md</code></a>。官方教程把这类 <code>&lt;dtmf .../&gt;</code> 标签写在场景正文中，作为该阶段的按键处理。这是 Playbook 里的动作声明，不是把按键直接发到外部业务接口，也不是第 3 课所说的呼入 Webhook 处理器。</p>
+
+<p class="source">摘录（不完整，不可直接运行）</p>
+<pre><code># Scene: greeting
+&lt;dtmf digit="1" action="goto" scene="product_info" /&gt;
+
+# Scene: product_info
+You are now explaining our AI services.</code></pre>
+<p class="source">上面是结构摘录：取自官方多场景示例，省略了播放、转接、挂断等其他标签，未改官方用词。</p>
+
+<p>来话者按下数字键 <code>1</code>，这是电话上的 DTMF 信号。本课不区分它走带内音还是 RTP 事件。同一行的 <code>&lt;dtmf digit="1" action="goto" scene="product_info" /&gt;</code> 是 Playbook 的动作标签：把这个按键声明为 <code>action="goto"</code>，场景名写的是 <code>product_info</code>。该提交的解析代码会把这种标签收成该场景里数字 <code>1</code> 的 goto 动作。场景标题本身只是声明阶段，不会因为排在后面就自动执行。标签写了跳转，并不表示本课已经核实它何时生效、模型是否参与，或标签只在当前场景内有效。</p>
+
+<p class="note">完整文件里还有转接、挂断、播放等项，本课不展开，也不保留可指向外部号码或业务接口的写法。这是静态阅读，不可直接运行，也不要发送真实按键、发起呼叫、录音、调用付费接口或下载模型。未实际按键验证跳转行为。</p>
+
+<h2>练习</h2>
+<div class="task">
+<p class="q">先不要往下看。来话者按下数字键 <code>1</code> 时，这份官方摘录里是哪一行在声明接下来做什么？按键 DTMF 和这行标签，哪个是电话上的信号，哪个是 Playbook 里的动作声明？它会转到哪个场景？</p>
+<details>
+<summary>先答完再展开</summary>
+<p>声明在 <code>&lt;dtmf digit="1" action="goto" scene="product_info" /&gt;</code> 这一行。按键 <code>1</code> 是电话上的 DTMF 信号；这行是 Playbook 的动作标签，把该按键对应到跳转。目标场景是 <code>product_info</code>。本课只读文件，未运行，也未实际按键。</p>
+</details>
+</div>
+
+<h2>主要阅读</h2>
+<p>请打开固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a>（crate 0.3.120）的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/multi_scene.md"><code>config/playbook/multi_scene.md</code></a>，并对照 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/playbook_tutorial.md">Playbook 中文教程</a>「场景管理」里的按键示例，以及 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/src/playbook/mod.rs#L324-L347">解析这段标签的代码</a>。本页是非官方学习课文，不是官方文档。</p>
+<p>对照也可随时查看 <a href="../reference/dtmf-and-tools.html">按键与动作标签速查</a>。上一课：<a href="0007-variables.html">配置期与呼叫期变量</a>。</p>
+<p>有不清楚的，直接问我。</p>
+<p>下一课预告：HTTP 与 WebSocket API。</p>
+<p class="source">目录：<a href="../index.html">课程索引</a>。本课不含个人进度，也尚未运行任何服务。</p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）· 课文 2026-11-23</footer>
+</body>
+</html>
