@@ -46,14 +46,14 @@
         "note": "第 6 课、更新后的目录，以及第 5 课指向第 6 课的链接。这是这些文件当前字节进入 git 的提交，不是写入本字段的那次提交。前面的记录保留。"
       },
       {
-        "commit": null,
+        "commit": "aa60f48034e426d8a9caddc1fef66664545733b5",
         "paths": [
           "index.html",
           "lessons/0006-yaml-and-scenes.html",
           "lessons/0007-variables.html",
           "reference/variables.html"
         ],
-        "note": "第 7 课、更新后的目录，以及第 6 课指向第 7 课的链接。commit 在这些文件进入 git 之后写入，不写成包含本字段的提交。前面的记录保留。"
+        "note": "第 7 课、更新后的目录，以及第 6 课指向第 7 课的链接。这是这些文件当前字节进入 git 的提交，不是写入本字段的那次提交。前面的记录保留。"
       }
     ]
   },
