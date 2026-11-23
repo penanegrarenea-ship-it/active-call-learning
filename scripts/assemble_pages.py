@@ -345,7 +345,7 @@ def check_lessons_commit(data: dict, allow: list[str], allow_unset: bool) -> Non
     entries = learning.get("content_commits", [])
     if not isinstance(entries, list):
         fail("content_commits must be a list")
-    incremental: dict[str, str | None] = {}
+    history: dict[str, list[str | None]] = {}
     for entry in entries:
         if not isinstance(entry, dict):
             fail("each content_commits entry must be an object")
@@ -355,12 +355,14 @@ def check_lessons_commit(data: dict, allow: list[str], allow_unset: bool) -> Non
             fail("content_commits.commit must be a full git commit or null")
         if not isinstance(paths, list) or not paths:
             fail("content_commits.paths must list the files changed in that increment")
+        seen_here: set[str] = set()
         for rel in paths:
             if not isinstance(rel, str) or rel not in allow:
                 fail(f"content commit path is not allowlisted: {rel!r}")
-            if rel in incremental:
-                fail(f"{rel} is listed in more than one content commit")
-            incremental[rel] = commit
+            if rel in seen_here:
+                fail(f"{rel} is repeated inside one content commit")
+            seen_here.add(rel)
+            history.setdefault(rel, []).append(commit)
 
     base_type = commit_type(recorded)
     if base_type is None:
@@ -372,30 +374,42 @@ def check_lessons_commit(data: dict, allow: list[str], allow_unset: bool) -> Non
             base_blob = blob_at(recorded, rel)
             worktree_blob = git("hash-object", rel)
             changed = base_blob != worktree_blob
-            if changed and rel not in incremental:
+            if changed and rel not in history:
                 fail(f"{rel} no longer matches lessons_commit and is not in content_commits")
-            if not changed and rel in incremental:
+            if not changed and rel in history:
                 fail(f"{rel} still matches lessons_commit; leave it out of content_commits")
 
-    for rel, commit in incremental.items():
-        if commit is None:
-            if allow_unset:
-                print(f"{rel} content commit is unset; skipping its git trace")
+    for rel, commits in history.items():
+        worktree_blob = git("hash-object", rel)
+        for index, commit in enumerate(commits):
+            latest = index == len(commits) - 1
+            if commit is None:
+                if latest and allow_unset:
+                    print(f"{rel} content commit is unset; skipping its git trace")
+                    continue
+                fail(f"{rel} needs the commit that introduced that version")
+            if commit == head:
+                fail("content_commits points at HEAD, which would be a self-reference")
+            if commit == recorded:
+                fail("content_commits must not reuse lessons_commit")
+            kind = commit_type(commit)
+            if kind is None:
+                print(f"content commit for {rel} is not in this checkout; pages_sha256 still checks the bytes")
                 continue
-            fail(f"{rel} needs the commit that introduced its current bytes")
-        if commit == head:
-            fail("content_commits points at HEAD, which would be a self-reference")
-        if commit == recorded:
-            fail("content_commits must not reuse lessons_commit")
-        kind = commit_type(commit)
-        if kind is None:
-            print(f"content commit for {rel} is not in this checkout; pages_sha256 still checks the bytes")
-            continue
-        if kind != "commit":
-            fail(f"content commit for {rel} is not a commit object")
-        recorded_blob = blob_at(commit, rel)
-        if recorded_blob != git("hash-object", rel):
-            fail(f"{rel} does not match content commit {commit}")
+            if kind != "commit":
+                fail(f"content commit for {rel} is not a commit object")
+            recorded_blob = blob_at(commit, rel)
+            if recorded_blob is None:
+                fail(f"{rel} is missing from content commit {commit}")
+            if latest and recorded_blob != worktree_blob:
+                fail(f"{rel} does not match its latest content commit {commit}")
+            if not latest:
+                newer = commits[index + 1]
+                if newer is None:
+                    continue
+                newer_blob = blob_at(newer, rel)
+                if newer_blob is not None and newer_blob == recorded_blob:
+                    fail(f"{rel} is unchanged between content commits {commit} and {newer}")
 
 
 def main() -> None:
