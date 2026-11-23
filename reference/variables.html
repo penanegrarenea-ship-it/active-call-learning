@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>速查：配置期与呼叫期变量</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 变量速查 · 非官方 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>配置期 <code>${VAR}</code> 与呼叫期 <code>{{var}}</code></h1>
+<p class="lede">供以后重开。不是官方文档，也不表示已经掌握，也尚未运行。</p>
+<ul>
+<li><code>${VAR}</code>：加载 YAML 前置时按环境变量替换。无歧义例子：<code>${LLM_MODEL}</code>。未设置时，源码留下原文。</li>
+<li><code>{{var}}</code>：呼叫对话渲染时替换。无连字符的内置例子：<code>{{ session_id }}</code>、<code>{{ call_type }}</code>。</li>
+<li>不要把这套写法当成 <code>active-call.toml</code> 或所有字段的规则。句法对照里「正文中的 <code>${VAR}</code> 在加载时固定」与本课读到的解析函数不一致，这里不下结论。</li>
+<li>带连字符的 SIP 头，同提交文档冲突：对照写 <code>{{X-Customer-Name}}</code> 和 <code>extract_headers</code>；高级特性和源码测试写 <code>{{ sip["X-Customer-Name"] }}</code>；教程示例写 <code>extractHeaders</code>。结构体字段是 <code>extract_headers</code>。本速查不判定哪一种会生效。</li>
+</ul>
+<p class="source">出处：固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a> 的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/template_syntax_comparison.md">template_syntax_comparison.md</a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/env_vars_example.md">env_vars_example.md</a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/playbook_advanced_features.md">playbook_advanced_features.md</a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/playbook_tutorial.md">playbook_tutorial.md</a>，以及 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/src/playbook/mod.rs#L17-L24"><code>expand_env_vars</code></a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/src/lib.rs#L40-L48"><code>SipOption.extract_headers</code></a>。</p>
+<p class="source">对应课文：<a href="../lessons/0007-variables.html">第 7 课</a> · <a href="../lessons/0006-yaml-and-scenes.html">第 6 课</a> · <a href="../index.html">课程索引</a></p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）</footer>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第 7 课：配置期与呼叫期变量</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="course">active-call 学习 · 第 7 课 · 非官方课程 · 0.3.120 / d453c4f8 · 尚未运行</header>
+
+<h1>配置期 <code>${VAR}</code> 与呼叫期 <code>{{var}}</code></h1>
+<p class="lede">约 3 分钟。本课只记一件事：Playbook 里有两种变量写法，不要混用。<code>${VAR}</code> 在加载 YAML 前置时按环境变量替换；<code>{{var}}</code> 在呼叫对话时按运行时变量替换。下面是摘录，不能直接运行。本课只读文件。</p>
+
+<p>配置期这一行同时出现在 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/template_syntax_comparison.md">模板句法对照</a> 和 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/env_vars_example.md"><code>env_vars_example.md</code></a>。呼叫期的两个名字是该提交源码注入的内置量，单元测试写成带空格的 <code>{{ session_id }}</code>、<code>{{ call_type }}</code>。拼在一起只为对照时机，不是仓库里的一份现成文件。</p>
+
+<p class="source">摘录（不完整，不可直接运行）</p>
+<pre><code>---
+llm:
+  model: "${LLM_MODEL}"
+---
+
+# Scene: main
+会话：{{ session_id }}
+类型：{{ call_type }}</code></pre>
+
+<p><code>${LLM_MODEL}</code> 属于 YAML 前置。该提交的 <code>Playbook::parse</code> 只对这对 <code>---</code> 之间的 YAML 调用 <code>expand_env_vars</code>；环境变量没有设置时，源码把 <code>${VAR}</code> 原文留下。句法对照还写「正文里的 <code>${VAR}</code> 会在加载时变成固定值」；本课读到的解析函数没有对正文做这一步，所以正文那一句不下结论。</p>
+
+<p><code>{{ session_id }}</code> 和 <code>{{ call_type }}</code> 属于正文。通话对象创建时把这两个名字写进会话变量；场景提示在渲染时用 MiniJinja 替换。<code>call_type</code> 在源码里是 <code>sip</code>、<code>websocket</code>、<code>webrtc</code> 或 <code>b2bua</code> 之一。这不是主配置 <code>active-call.toml</code> 的替换规则，本课也不把它推广到所有字段。</p>
+
+<p class="note">同一次提交的文档并不一致，本课不选边。句法对照把带连字符的 SIP 头写成 <code>{{X-Customer-Name}}</code>，字段名用 <code>extract_headers</code>。高级特性文档和 <code>src/playbook/mod.rs</code> 的测试写成 <code>{{ sip["X-Customer-Name"] }}</code>，并说明连字符会被 Jinja 当成减法。教程示例的字段名是 <code>extractHeaders</code>，而 <code>SipOption</code> 的字段是 <code>extract_headers</code>，没有驼峰重命名。练习不用这种名字。不要读取或填写真实密钥。本课不调用模型、不发起呼叫。</p>
+
+<h2>练习</h2>
+<div class="task">
+<p class="q">先不要往下看。在上面的摘录里，<code>${LLM_MODEL}</code> 和 <code>{{ session_id }}</code> 各属于哪一种变量？哪一个在加载 YAML 时按环境变量替换，哪一个在呼叫对话时替换？</p>
+<details>
+<summary>先答完再展开</summary>
+<p><code>${LLM_MODEL}</code> 是配置期环境变量，在加载 YAML 前置时替换。<code>{{ session_id }}</code> 是呼叫期运行时变量，在对话渲染时替换。不要把这两种写法混用。本课只读文件，未运行。</p>
+</details>
+</div>
+
+<h2>主要阅读</h2>
+<p>请打开固定提交 <a href="https://github.com/miuda-ai/active-call/commit/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123"><code>d453c4f8d4525c9c44fc7c6a8076b9bb98ede123</code></a>（crate 0.3.120）的 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/template_syntax_comparison.md">模板句法对照</a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/config/playbook/env_vars_example.md"><code>env_vars_example.md</code></a>，以及源码 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/src/playbook/mod.rs#L17-L24"><code>expand_env_vars</code></a>、<a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/src/playbook/mod.rs#L198-L205">内置变量名</a> 和 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/src/call/active_call.rs#L948-L961">注入 <code>session_id</code> / <code>call_type</code></a>。带连字符的冲突见 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/docs/zh/playbook_advanced_features.md">高级特性</a> 与 <a href="https://github.com/miuda-ai/active-call/blob/d453c4f8d4525c9c44fc7c6a8076b9bb98ede123/src/playbook/mod.rs#L681-L690">同一文件里的测试</a>。本页是非官方学习课文，不是官方文档。</p>
+<p>句法对照也可随时查看 <a href="../reference/variables.html">变量速查</a>。上一课：<a href="0006-yaml-and-scenes.html">YAML 前置与场景声明</a>。</p>
+<p>有不清楚的，直接问我。</p>
+<p>下一课：<a href="0008-dtmf-and-tools.html">按键 DTMF 与动作标签</a>。</p>
+<p class="source">目录：<a href="../index.html">课程索引</a>。本课不含个人进度，也尚未运行任何服务。</p>
+<footer>active-call 学习（非官方）· 锚定 0.3.120 / d453c4f8d4525c9c44fc7c6a8076b9bb98ede123（2026-11-20 14:53 Asia/Tokyo）· 课文 2026-11-23</footer>
+</body>
+</html>
