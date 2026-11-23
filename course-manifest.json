@@ -26,14 +26,14 @@
         "note": "第 4 课、更新后的目录，以及第 3 课指向第 4 课的链接。这是这些文件进入 git 的提交，不是写入本字段的那次提交。"
       },
       {
-        "commit": null,
+        "commit": "d55668e8f31ae77bf58a77e07e4d33e01ba6bd5d",
         "paths": [
           "index.html",
           "lessons/0004-config-ports-safety.html",
           "lessons/0005-hello-playbook.html",
           "reference/hello-playbook.html"
         ],
-        "note": "第 5 课、更新后的目录，以及第 4 课指向第 5 课的链接。commit 在这些文件进入 git 之后写入，不写成包含本字段的提交。上一条记录保留。"
+        "note": "第 5 课、更新后的目录，以及第 4 课指向第 5 课的链接。这是这些文件当前字节进入 git 的提交，不是写入本字段的那次提交。上一条记录保留。"
       }
     ]
   },
