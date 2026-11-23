@@ -66,14 +66,14 @@
         "note": "第 8 课、更新后的目录，以及第 7 课指向第 8 课的链接。这是这些文件当前字节进入 git 的提交，不是写入本字段的那次提交。前面的记录保留。"
       },
       {
-        "commit": null,
+        "commit": "42d7b3e08749e634d672720c8ba868fc7b7c70b1",
         "paths": [
           "index.html",
           "lessons/0008-dtmf-and-tools.html",
           "lessons/0009-http-websocket-api.html",
           "reference/http-websocket-api.html"
         ],
-        "note": "第 9 课、更新后的目录，以及第 8 课指向第 9 课的链接。commit 在这些文件进入 git 之后写入，不写成包含本字段的提交。前面的记录保留。"
+        "note": "第 9 课、更新后的目录，以及第 8 课指向第 9 课的链接。这是这些文件当前字节进入 git 的提交，不是写入本字段的那次提交。前面的记录保留。"
       }
     ]
   },
